@@ -1,0 +1,12 @@
+Jonathan Tousley
+A10908436
+jsltousley@gmail.com
+Dr. Roy
+ECE 5460 - VLSI Design Automation
+Homework 0
+
+Instructions:
+
+[Linux]
+Type "make" without quotes in the working directory to compile AND run the program.
+The "Create Tree" command requires read permissions to a file called "input.txt" in the same directory.

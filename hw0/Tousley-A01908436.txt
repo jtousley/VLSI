@@ -1,0 +1,4 @@
+Create Tree: 84 36 22 16 28 63 50 60 78 64 93 87 91 94 
+Delete value: 84
+Resulting state: 78 78 64 93 87 91 94 
+Program terminated
