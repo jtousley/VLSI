@@ -109,24 +109,44 @@ std::string simAnn(std::string NPE, const std::vector<Module::Module>& modules)
     double TEMP = INIT_TEMP;
     std::string curr_place = NPE;
     std::string new_place = "";
+    std::string best_solution = NPE;
+    double curr_place_cost = 0.0;
+    double new_place_cost = 0.0;
+    double best_solution_cost = getCost(best_solution, modules);
     double delta_cost = 0.0;
     int moves = 0;
     int uphill_moves = 0;
     int rejected_moves = 0;
+    int CAPITAL_N = N_MOVES * modules.size();
 
-    while(TEMP > FINAL_TEMP)
+    //while( TEMP > FINAL_TEMP )
+    while( (TEMP > FINAL_TEMP) && (((double)rejected_moves / (double)(moves + 1)) < 0.95) )
     {
-        //std::cout << ++moves << std::endl;
-        new_place = Rand_Move(curr_place);
-        delta_cost = getCost(new_place, modules) - getCost(curr_place, modules);
-        if((delta_cost < 0))
+        moves = 0;
+        while( (uphill_moves < CAPITAL_N) && (moves < 2*CAPITAL_N) )
         {
-            curr_place = new_place;
-        }
-        else if(exp(delta_cost / TEMP * -1) > getRandomZeroOne())
-        {
-            curr_place = new_place;
-            uphill_moves++;
+            new_place = Rand_Move(curr_place);
+            new_place_cost = getCost(new_place, modules);
+            curr_place_cost = getCost(curr_place, modules);
+            delta_cost = new_place_cost - curr_place_cost;
+            if((delta_cost < 0))
+            {
+                curr_place = new_place;
+                if(curr_place_cost < best_solution_cost)
+                {
+                    best_solution = curr_place;
+                }
+            }
+            else if(exp(delta_cost / TEMP * -1) > getRandomZeroOne())
+            {
+                curr_place = new_place;
+                uphill_moves++;
+            }
+            else
+            {
+                rejected_moves++;
+            }
+            moves++;
         }
         TEMP = schedule(TEMP);
     }

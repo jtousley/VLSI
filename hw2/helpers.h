@@ -7,6 +7,11 @@
 #include <algorithm>
 #include <climits>
 
+#define INPUT_FILE "input_file.txt"
+#define TEST_CASE_ONE "12V3V4V5V6V7V8V9VaVbVcVdVeVfVgViVjVkVlV"
+#define TEST_CASE_TWO "12H3H4H5H6H7H8H9HaHbHcHdHeHfHgHiHjHkHlH"
+#define TEST_CASE_THREE "213546H7VHVa8V9HcVHgHibdHkVHfeHVlHVjHVH"
+
 extern double INIT_TEMP;
 extern const double FINAL_TEMP;
 extern const double CHIP_RATIO;

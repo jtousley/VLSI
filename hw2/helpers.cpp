@@ -3,8 +3,8 @@
 #include "helpers.h"
 
 std::random_device random_dev;
-//std::mt19937 mt_gen(I_SEED);
-std::mt19937 mt_gen(random_dev());
+std::mt19937 mt_gen(I_SEED);
+//std::mt19937 mt_gen(random_dev());
 std::uniform_real_distribution<double> temp_distribution(0.0, 1.0);
 std::uniform_int_distribution<int> move_type_distribution(0, 2);
 std::uniform_int_distribution<int> length_distribution(0, INT_MAX);
@@ -77,7 +77,7 @@ int getNextOperandLeft(std::string curr, int index)
 int getNextOperatorRight(std::string curr, int iter)
 {
     int toRet = iter;
-    if(iter >= curr.size())
+    if(iter >= (int)curr.size())
     {
         return toRet;
     }
@@ -117,7 +117,6 @@ std::string Rand_Move(std::string curr)
 {
     int move_type = getRandomZeroTwo();
     std::string toRet = curr;
-    //std::cout << "Move_type = " << move_type << std::endl;
 
     if(move_type == 1) // m1 move
     {
@@ -153,17 +152,11 @@ std::string Rand_Move(std::string curr)
                 int index = 0;
                 if((index = getNextOperatorRight(curr, iter)))
                 {
-                    //std::cout << "Type 1\n";
-                    //std::cout << "Index: " << index << std::endl
-                    //    << "Iter: " << iter << std::endl;
                     toRet = m2_swap(curr, iter, index);
                     found = true;
                 }
                 else if((index = getNextOperatorLeft(curr, iter)))
                 {
-                    //std::cout << "Type 2\n";
-                    //std::cout << "Index: " << index << std::endl
-                    //    << "Iter: " << iter << std::endl;
                     toRet = m2_swap(curr, index, iter);
                     found = true;
                 }
@@ -177,7 +170,6 @@ std::string Rand_Move(std::string curr)
     {
         bool isNPE = false;
         bool found = false;
-        //std::cout << "Length: " << curr.length() << std::endl;
         while(!isNPE && found)
         {
             int iter = (getPseudoRand() % curr.length() - 1);
