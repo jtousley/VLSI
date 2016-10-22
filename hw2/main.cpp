@@ -10,21 +10,24 @@ int main()
 {
     std::vector<Module::Module> modules = read_input();
 
-    std::cout << "STANDARD METHOD RESULTS:\n";
     std::cout << "FIRST:\n";
+    std::cout << "INITIAL:\n";
     std::cout << cost(TEST_CASE_ONE, modules);
-    std::cout << "SECOND:\n";
-    std::cout << cost(TEST_CASE_TWO, modules);
-    std::cout << "THIRD:\n";
-    std::cout << cost(TEST_CASE_THREE, modules);
-
-    std::cout << std::endl << std::endl;
-    std::cout << "SIMULATED ANNEALING RESULTS:\n";
-    std::cout << "FIRST:\n";
+    std::cout << std::endl << "FINAL:\n";
     std::cout << simAnn(TEST_CASE_ONE, modules);
+    std::cout << std::endl << std::endl;
+
     std::cout << "SECOND:\n";
+    std::cout << "INITIAL:\n";
+    std::cout << cost(TEST_CASE_TWO, modules);
+    std::cout << std::endl << "FINAL:\n";
     std::cout << simAnn(TEST_CASE_TWO, modules);
+    std::cout << std::endl << std::endl;
+
     std::cout << "THIRD:\n";
+    std::cout << "INITIAL:\n";
+    std::cout << cost(TEST_CASE_THREE, modules);
+    std::cout << std::endl << "FINAL:\n";
     std::cout << simAnn(TEST_CASE_THREE, modules);
 
     return 0;
