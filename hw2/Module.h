@@ -36,18 +36,29 @@ public:
     double Ratio(){ return _ratio; }
     double Width(){ return _width; }
     double Height(){ return _height; }
-    std::vector<std::pair<double,double>> Possibles(){ return _possibles; }
+    std::vector<std::pair<double,double>>& Possibles(){ return _possibles; }
     // adds possible solutions, ignores  any duplicates or larger values every time a new value is added
-    void addPoss(std::pair<double, double> val)
+    void addPoss(std::pair<double, double>& val)
     { 
+        //_possibles.erase(std::remove_if(_possibles.begin(), _possibles.end(), [&](std::pair<double, double> input){
+        //    return ((input.first >= val.first && input.second > val.second) || (input.first > val.first && input.second >= val.second));
+        //    }), _possibles.end());
+
+        //for(unsigned int i = 0; i < _possibles.size(); i++)
+        //{
+        //    if((val.first >= _possibles[i].first && val.second > _possibles[i].second) || (val.first > _possibles[i].first && val.second >= _possibles[i].second))
+        //    {
+        //        return;
+        //    }
+        //}
+        _possibles.push_back(val);
+
         for(unsigned int i = 0; i < _possibles.size(); i++)
         {
-            if((val.first >= _possibles[i].first && val.second > _possibles[i].second) || (val.first > _possibles[i].first && val.second >= _possibles[i].second))
-            {
-                return;
-            }
+            _possibles.erase(std::remove_if(_possibles.begin(), _possibles.end(), [&](std::pair<double, double> input){
+                return ((input.first >= _possibles[i].first && input.second > _possibles[i].second) || (input.first > _possibles[i].first && input.second >= _possibles[i].second));
+                }), _possibles.end());
         }
-        _possibles.push_back(val);
     }
 
 };

@@ -3,14 +3,15 @@
 #include "helpers.h"
 
 std::random_device random_dev;
-std::mt19937 mt_gen(I_SEED);
-//std::mt19937 mt_gen(random_dev());
-std::uniform_real_distribution<double> temp_distribution(0.0, 1.0);
+//std::mt19937 mt_gen(I_SEED);
+std::mt19937 mt_gen(random_dev());
+std::uniform_real_distribution<double> temp_distribution(0.0, 0.999);
 std::uniform_int_distribution<int> move_type_distribution(0, 2);
 std::uniform_int_distribution<int> length_distribution(0, INT_MAX);
 
-double INIT_TEMP = -1.0;
-const double FINAL_TEMP = 0.0;
+//double INIT_TEMP = 1.0;
+double INIT_TEMP = 100.0;
+const double FINAL_TEMP = 1.0;
 const double CHIP_RATIO = 2.0;
 const int N_MOVES = 10;
 double RATIO = 0.85;
@@ -150,16 +151,28 @@ std::string Rand_Move(std::string curr)
             if(isOperator(curr[iter]))
             {
                 int index = 0;
-                if((index = getNextOperatorRight(curr, iter)))
-                {
-                    toRet = m2_swap(curr, iter, index);
+                //if((index = getNextOperatorRight(curr, iter)))
+                //{
+                    index = getNextOperatorRight(curr, iter);
+                    if(index == -1)
+                    {
+                        index = getNextOperatorLeft(curr, iter);
+                        if(index == -1){ index = iter; }
+                        toRet = m2_swap(curr, index, iter);
+                    }
+                    else
+                    {
+                        toRet = m2_swap(curr, iter, index);
+                    }
+                    //std::cout << "Swapping... Index: " << index << " iter: " << iter << std::endl;
+                    //std::cout << "Result: " << toRet << std::endl;
                     found = true;
-                }
-                else if((index = getNextOperatorLeft(curr, iter)))
-                {
-                    toRet = m2_swap(curr, index, iter);
-                    found = true;
-                }
+                //}
+                //else if((index = getNextOperatorLeft(curr, iter)))
+                //{
+                    //toRet = m2_swap(curr, index, iter);
+                    //found = true;
+                //}
             } // if operator
             else
                 continue;
@@ -235,14 +248,7 @@ std::string m1_swap(std::string input, int first, int second)
 
 char complementOperator(char input)
 {
-    if(input == 'H')
-    {
-        return 'V';
-    }
-    else
-    {
-        return 'H';
-    }
+    return (input == 'H') ? 'V' : 'H';
 }
 
 std::string m2_swap(std::string input, int first, int second)
